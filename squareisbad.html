@@ -61,18 +61,28 @@ async function checkForElement(elementID, maxRetries = 50, delay = 300) {
   return null;
 }
 
-async function handleElement(elementID, elementInnerHTML) {
-let aboutimg = await checkForElement(elementID);
-if (aboutimg) {
+async function handleElement(elementID, action, elementInnerHTML) {
+let selectedElement = await checkForElement(elementID);
+if (selectedElement) {
 console.log('Success at long last!!!');
-aboutimg.innerHTML= elementInnerHTML;
+if (action =="replace") {
+selectedElement.innerHTML= elementInnerHTML;
+}
+else if (action == "append") {
+if (selectedElement && elementInnerHTML) {
+const element = document.createElement('div');
+element.classList.add('customaddedwrapperdiv', 'appendeddiv');
+element.innerHTML = elementInnerHTML;
+selectedElement.appendChild(element);
+  }
+}
 }
 else {
 console.log("I'm done");
 }
 }
 document.addEventListener("DOMContentLoaded", () => {
-handleElement('about-us-image', '<h1>Suck A Square</h1>');
+handleElement('about-us-image', 'append', '<h1>Suck A Square</h1>');
 
 });
 
