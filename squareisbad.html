@@ -1,0 +1,73 @@
+<script>
+document.addEventListener("DOMContentLoaded", (event) => {
+app=document.getElementById('about-us-image');
+console.log(app, 'via firstfunc');
+  let oldHref =window.location.pathname;
+  console.log(oldHref);
+function appendElementToDocument(tagName, textContent) {
+  const newElement = document.createElement(tagName);
+if (textContent) {
+    newElement.textContent = textContent;
+  }
+  document.body.appendChild(newElement);
+}
+
+
+function checkPage() { if (oldHref == "/") {
+appendElementToDocument('p', "I Don't Like Square");
+  } else if (oldHref == "/about") {
+    alert("We're About!!");
+  }
+else if (oldHref == "/s/shop") {
+    alert("We're Shopping!!");
+  }
+};
+checkPage();
+
+  const observeUrlChange = () => {
+    const body = document.querySelector('body');
+    const observer = new MutationObserver(mutations => {
+      if (oldHref !== document.location.pathname) {
+        oldHref = document.location.pathname;
+  console.log(oldHref);
+  checkPage();
+      }
+    });
+    observer.observe(body, { childList: true, subtree: true });
+  };
+  
+  window.onload = observeUrlChange;
+  
+
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+aboutimg = checkForElement('about-us-image');
+if (aboutimg){
+console.log(aboutimg, 'Found');
+}
+});
+
+</script>
+
+
+<script>let pollInterval = null;
+
+function checkForElement(elementID) {
+  const el = document.getElementById(elementID);
+console.log('checkstarted for:', elementID);
+  if (el) {
+elementID=elementID;
+    alert("Element found:", el);
+console.log(el);
+    if (pollInterval) clearInterval(pollInterval);
+    return;
+  }
+   pollInterval = setTimeout(() => {
+    checkForElement(elementID);
+  }, 100);
+}
+
+
+
+</script>
