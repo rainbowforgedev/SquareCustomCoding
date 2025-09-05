@@ -61,19 +61,18 @@ async function checkForElement(elementID, maxRetries = 50, delay = 300) {
   return null;
 }
 
-async function handleElement() {
-let aboutimg = await checkForElement('about-us-image');
+async function handleElement(elementID, elementInnerHTML) {
+let aboutimg = await checkForElement(elementID);
 if (aboutimg) {
 console.log('Success at long last!!!');
-aboutimg.innerHTML="<p>Suck a Square</p>";
+aboutimg.innerHTML= elementInnerHTML;
 }
 else {
 console.log("I'm done");
 }
 }
 document.addEventListener("DOMContentLoaded", () => {
-checkForElement('about-us-image');
-handleElement();
+handleElement('about-us-image', '<h1>Suck A Square</h1>');
 
 });
 
